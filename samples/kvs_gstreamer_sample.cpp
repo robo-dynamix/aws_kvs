@@ -14,7 +14,7 @@ using namespace std::chrono;
 using namespace com::amazonaws::kinesis::video;
 using namespace log4cplus;
 
-char *thing_name = std::getenv("THING_NAME");
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -489,6 +489,7 @@ void kinesis_video_init(CustomData *data) {
     char const *private_key_path;
     char const *role_alias;
     char const *ca_cert_path;
+    char const *thing_name;
 
     unique_ptr<CredentialProvider> credential_provider;
 
@@ -521,6 +522,7 @@ void kinesis_video_init(CustomData *data) {
                nullptr != (cert_path = getenv("CERT_PATH")) &&
                nullptr != (private_key_path = getenv("PRIVATE_KEY_PATH")) &&
                nullptr != (role_alias = getenv("ROLE_ALIAS")) &&
+	       nullptr != (thing_name = getenv("THING_NAME")) &&
                nullptr != (ca_cert_path = getenv("CA_CERT_PATH"))) {
         LOG_INFO("Using IoT credentials for Kinesis Video Streams");
         credential_provider.reset(new IotCertCredentialProvider(iot_get_credential_endpoint,
