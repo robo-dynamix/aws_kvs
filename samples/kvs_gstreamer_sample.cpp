@@ -14,6 +14,8 @@ using namespace std::chrono;
 using namespace com::amazonaws::kinesis::video;
 using namespace log4cplus;
 
+char *thing_name = std::getenv("THING_NAME");
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -526,7 +528,7 @@ void kinesis_video_init(CustomData *data) {
                                                                 private_key_path,
                                                                 role_alias,
                                                                 ca_cert_path,
-                                                                data->stream_name));
+                                                                thing_name));
 
     } else {
         LOG_AND_THROW("No valid credential method was found");
